@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mattlabarca10/Web-Based-AirDrop/issues"
   },
-  "homepage": "https://github.com/mattlabarca10/Web-Based-AirDrop#readme"
+  "homepage": "https://github.com/mattlabarca10/Web-Based-AirDrop#readme",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
 }
