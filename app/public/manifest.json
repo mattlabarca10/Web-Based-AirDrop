@@ -16,6 +16,11 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "PairDrop.png",
+      "type": "image/png",
+      "sizes": "1068x1068"
     }
   ],
   "start_url": ".",

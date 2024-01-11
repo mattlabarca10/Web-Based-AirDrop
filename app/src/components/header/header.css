@@ -1,0 +1,32 @@
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto 0 auto; /* same as mx-auto in libraries like tailwind */
+    width: 98.5%; /* tad bit spacing on both ends */
+}
+
+.title-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 35px;
+}
+
+h2 {
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
