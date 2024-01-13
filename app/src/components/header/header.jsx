@@ -6,7 +6,7 @@ export default function Header() {
         <div className="header">
             <a href="/">
                 <div className="title-container">
-                    <img src={process.env.PUBLIC_URL + "/PairDrop.png"} height="88" width="88" alt="Logo"/>
+                    <img src={"/PairDrop.png"} height="88" width="88" alt="Logo"/>
                     <h2>Pairdrop</h2>
                 </div>
             </a>
