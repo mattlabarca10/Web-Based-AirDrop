@@ -12,3 +12,16 @@ importing the font for this website
   font-size: 100%;
   font-family: Average-Sans;
 }
+
+.main-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-text {
+  text-align: center;
+  white-space: pre-wrap;
+  font-size: 72px;
+}

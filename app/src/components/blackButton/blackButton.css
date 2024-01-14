@@ -1,0 +1,11 @@
+
+.blackButton {
+    font-size: 32px;
+    border-radius: 999px;
+    background-color: #000A22;
+    padding: 10px 25px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}

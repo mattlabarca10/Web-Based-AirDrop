@@ -1,0 +1,41 @@
+/* 
+  CSS for the home page,
+  will be ported eventually to
+  it's own component file
+*/
+.file-upload-box {
+    width: 500px;
+    height: 275px;
+    outline: 1px solid black;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 60px;
+}
+
+.black-button-wrapper {
+    flex-grow: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-upload-box-hovered {
+    width: 500px;
+    height: 275px;
+    outline: 2px dashed #000A28;
+    background-color: #efefef;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 60px;
+}
+
+.small-text {
+    font-size: 18px;
+    text-align: center;
+    margin: 0px;
+    flex-grow: 3;
+}
