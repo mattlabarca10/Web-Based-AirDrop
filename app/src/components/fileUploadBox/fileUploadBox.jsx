@@ -54,6 +54,9 @@ export default function FileUploadBox() {
             }
         }
     }
+    
+    // handling a major bug
+
 
     // on the components bootup add these event listeners
     // when we destroy the component remove these event listeners
@@ -62,24 +65,30 @@ export default function FileUploadBox() {
         ref.current.addEventListener('drop', dropHandler);
         ref.current.addEventListener('dragend', dragend_dragleaveHandler);
         ref.current.addEventListener('dragleave', dragend_dragleaveHandler);
-
+        
         return () => {
-            ref.current.removeEventListener('dragover', dragOverHandler);
-            ref.current.removeEventListener('drop', dropHandler);
-            ref.current.removeEventListener('dragend', dragend_dragleaveHandler);
-            ref.current.removeEventListener('dragleave', dragend_dragleaveHandler);
+            // it seems that something is causing
+            // this to be called twice? and it's causing an error
+            // at unmount time
+            // see https://react.dev/learn/synchronizing-with-effects
+            if (ref.current !== null) {
+                ref.current.removeEventListener('dragover', dragOverHandler);
+                ref.current.removeEventListener('drop', dropHandler);
+                ref.current.removeEventListener('dragend', dragend_dragleaveHandler);
+                ref.current.removeEventListener('dragleave', dragend_dragleaveHandler);
+            }
         };
 
     }, []);
 
     return (
-        <div ref={ref} className={ isFileOver? 'file-upload-box-hovered' : 'file-upload-box'}>
-          <div className='black-button-wrapper'>
-            { !isDropped && <BlackButton text={ isFileOver ? "Drop Here" : "Upload Image"} onClick={() => {console.log("boop");}} />}
-            { isDropped && <h2>Processing...</h2>}          
-          </div>
-          {!isDropped && <h6 className="small-text">or drop a file...</h6>}
-          {isDropped && <h6 className="small-text">please wait shortly...</h6>  }
-        </div>
+            <div ref={ref} className={ isFileOver? 'file-upload-box-hovered' : 'file-upload-box'}>
+                <div className='black-button-wrapper'>
+                { !isDropped && <BlackButton text={ isFileOver ? "Drop Here" : "Upload Image"} onClick={() => {console.log("boop");}} />}
+                { isDropped && <h2>Processing...</h2>}          
+                </div>
+                {!isDropped && <h6 className="small-text">or drop a file...</h6>}
+                {isDropped && <h6 className="small-text">please wait shortly...</h6>  }
+            </div>
     );
 }

@@ -10,7 +10,7 @@ import "./blackButton.css";
 */
 export default function BlackButton({text, onClick}) {
     return (
-        <a class="blackButton" onClick={onClick}>
+        <a className="blackButton" onClick={onClick}>
             {text}
         </a>
         );

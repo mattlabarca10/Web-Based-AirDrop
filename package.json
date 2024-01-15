@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mattlabarca10/Web-Based-AirDrop#readme",
   "dependencies": {
+    "react-router": "^6.21.2",
     "react-scripts": "^5.0.1"
   }
 }
