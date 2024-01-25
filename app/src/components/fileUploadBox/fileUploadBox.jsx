@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useRef, useEffect} from 'react';
-import BlackButton from '../blackButton/blackButton.jsx';
+import { UploadButton } from '../uploadButton/uploadButton';
 import './fileUploadBox.css';
 
 /*
@@ -8,7 +8,7 @@ import './fileUploadBox.css';
 
     supports drag and drop and manual upload and has animation changes for it
 */
-export default function FileUploadBox() {
+function FileUploadBox() {
 
     const [isFileOver, setIsFileOver] = useState(false);
     const [isDropped, setIsDropped] = useState(false);
@@ -45,12 +45,28 @@ export default function FileUploadBox() {
         
         const f = e.dataTransfer.files; // grab the file
         if (f) {
-            if (f.length) { 
+            if (f[0]) { 
                 // turn on processing style
                 setIsDropped(true); 
+
+                // checking extension to see if it's heic, png, jpg, jpeg
+                let regex = new RegExp('[^.]+$');
+                let extension = f[0].name.toLowerCase().match(regex);
                 
-                // ToDo: set up the file handling
-                console.log("nice");
+                // if it's valid add it to local storage
+                if (extension == "png" || extension == "jpeg" || extension == "jpg" || extension == "heic") {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(f[0]);
+                    reader.onload = () => {
+                        localStorage.setItem("url", reader.result)
+                        window.dispatchEvent(new Event("storage")) // see confirmUpload.jsx
+                    };
+                } else {
+                    // otherwise activate modal
+                    setIsDropped(false);
+                    setIsFileOver(false);
+                    console.log("Bad Extension");
+                }
             }
         }
     }
@@ -84,7 +100,7 @@ export default function FileUploadBox() {
     return (
             <div ref={ref} className={ isFileOver? 'file-upload-box-hovered' : 'file-upload-box'}>
                 <div className='black-button-wrapper'>
-                { !isDropped && <BlackButton text={ isFileOver ? "Drop Here" : "Upload Image"} onClick={() => {console.log("boop");}} />}
+                { !isDropped && <UploadButton text={ isFileOver ? "Drop Here" : "Upload Image"}/>}
                 { isDropped && <h2>Processing...</h2>}          
                 </div>
                 {!isDropped && <h6 className="small-text">or drop a file...</h6>}
@@ -92,3 +108,6 @@ export default function FileUploadBox() {
             </div>
     );
 }
+
+
+export {FileUploadBox};

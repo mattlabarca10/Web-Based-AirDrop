@@ -10,8 +10,8 @@ import "./blackButton.css";
 */
 export default function BlackButton({text, onClick}) {
     return (
-        <label className = "blackButton" for = "file-input"> {text} 
-        <input id = "file-input" type = "file" accept = "application/pdf">
-        </input> </label>
+        <button className = "blackButton" onClick={onClick}> 
+            {text} 
+        </button>
         );
 }

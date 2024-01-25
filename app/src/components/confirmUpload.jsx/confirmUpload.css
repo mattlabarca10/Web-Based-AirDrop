@@ -1,0 +1,13 @@
+
+.imgFrame {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 900px;
+    max-height: 600px;
+    outline: 3px solid black;
+}
+
+.resolution-text {
+    color: #a3a0a0;
+    font-size: 36px;
+}
