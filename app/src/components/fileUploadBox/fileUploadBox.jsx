@@ -8,10 +8,11 @@ import './fileUploadBox.css';
 
     supports drag and drop and manual upload and has animation changes for it
 */
-function FileUploadBox() {
+function FileUploadBox({ setUploadImage }) {
 
     const [isFileOver, setIsFileOver] = useState(false);
     const [isDropped, setIsDropped] = useState(false);
+    const[imageUpload, setImageUpload] = useState(null);
 
     const ref = useRef(null);
 
@@ -97,10 +98,12 @@ function FileUploadBox() {
 
     }, []);
 
+    
+
     return (
             <div ref={ref} className={ isFileOver? 'file-upload-box-hovered' : 'file-upload-box'}>
                 <div className='black-button-wrapper'>
-                { !isDropped && <UploadButton text={ isFileOver ? "Drop Here" : "Upload Image"}/>}
+                { !isDropped && <UploadButton text={ isFileOver ? "Drop Here" : "Upload Image"} />}
                 { isDropped && <h2>Processing...</h2>}          
                 </div>
                 {!isDropped && <h6 className="small-text">or drop a file...</h6>}

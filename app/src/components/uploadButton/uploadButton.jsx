@@ -1,8 +1,7 @@
-import React from "react";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import "./uploadButton.css";
 
-export function UploadButton({text}) {
+export function UploadButton({text, setImageUpload, imageUpload}) {
 
     function handleChange(e) {
         /*
@@ -10,16 +9,19 @@ export function UploadButton({text}) {
         I with though I could've compartmentalized this a bit better
         */
         const file = e.target.files[0];
-        let regex = new RegExp('[^.]+$');
-        let extension = file.name.match(regex)[0].toLowerCase();
-        // if it's valid add it to local storage
-        if (extension == "png" || extension == "jpeg" || extension == "jpg" || extension == "heic") {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                localStorage.setItem("url", reader.result)
-                window.dispatchEvent(new Event("storage")) // see confirmUpload.jsx
-            };
+        //setImageUpload(file); // Update the state in the parent component
+        if(file){
+            let regex = new RegExp('[^.]+$');
+            let extension = file.name.match(regex)[0].toLowerCase();
+            // if it's valid add it to local storage
+            if (extension == "png" || extension == "jpeg" || extension == "jpg" || extension == "heic") {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    localStorage.setItem("url", reader.result)
+                    window.dispatchEvent(new Event("storage")) // see confirmUpload.jsx
+                };
+            }
         }
     }
 
@@ -38,7 +40,14 @@ export function UploadButton({text}) {
     return (
         <label className = "blackButton" for="file-input"> 
             {text}
-            <input ref={ref} id="file-input" type="file" accept="image/png, image/jpeg, image/jpg, image/heic"></input>  
+            <input 
+                ref={ref} 
+                id="file-input" 
+                type="file" 
+                accept="image/png, image/jpeg, image/jpg, image/heic" 
+                onChange={handleChange}
+                value={imageUpload ? imageUpload.name : ''}
+                />
         </label>
     );
 }

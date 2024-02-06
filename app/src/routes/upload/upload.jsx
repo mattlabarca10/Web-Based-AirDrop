@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import { FileUploadBox } from "../../components/fileUploadBox/fileUploadBox";
-import { ConfirmUpload } from "../../components/confirmUpload.jsx/confirmUpload";
+import { ConfirmUpload } from "../../components/confirmUpload/confirmUpload";
 
 import "./upload.css";
 
 function Upload() {
-
+    const [imageUpload, setImageUpload] = useState(null);
     /*
     because the image is put in local storage before making it to the upload
     we can make the check here when we initialize it so we don't have to wait
@@ -25,6 +25,10 @@ function Upload() {
         setIsImgUploaded(true);
     });
 
+    const handleImageUpload = (image) => {
+        setImageUpload(image);
+    };
+
     return (
         <>
             {(!isImgUploaded) && <>
@@ -33,10 +37,10 @@ function Upload() {
                 Web-based AirDrop <br/>
                 Share Images Free
                 </h1>
-                <FileUploadBox />
+                <FileUploadBox setImageUpload={handleImageUpload} />
             </>}
             {(isImgUploaded) && <>
-                <ConfirmUpload />
+                <ConfirmUpload imageUpload={imageUpload}/>
             </>}
         </>
     )
