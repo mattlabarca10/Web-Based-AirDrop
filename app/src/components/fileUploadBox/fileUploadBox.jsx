@@ -60,6 +60,7 @@ function FileUploadBox({ setUploadImage }) {
                     reader.readAsDataURL(f[0]);
                     reader.onload = () => {
                         localStorage.setItem("url", reader.result)
+                        localStorage.setItem("blob", f[0] )
                         window.dispatchEvent(new Event("storage")) // see confirmUpload.jsx
                     };
                 } else {

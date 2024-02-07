@@ -21,7 +21,7 @@ const firestore = getFirestore(app); // Access firestore using getFirestore meth
 //const myDocument = doc(firestore, 'myCollection', 'myDocumentId');
 
 
-export { app, analytics, storage, firestore }; 
+export default { app, analytics, storage, firestore }; 
 
 
 

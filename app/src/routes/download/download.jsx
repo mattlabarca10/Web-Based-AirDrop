@@ -1,8 +1,10 @@
 import React , {useState} from "react";
-import { firestore } from "../../firebase"
+import firebase from "../../firebase"
 import { getFirestore, collection, query, where, doc, getDoc, getDocs } from "firebase/firestore"
 import "./download.css";
 import  BlackButton  from "../../components/blackButton/blackButton";
+
+const {app, analytics, storage, firestore} = firebase;
 
 const db = getFirestore();
 const docRef = doc(db, "images", "AUqPTHnCYwC0gfck56Jd");
@@ -12,22 +14,23 @@ const docSnap = await getDoc(docRef);
 function Download() {
     const [isImgReady, setIsImgReady] = useState(false);
     const [code, setCode] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     
     const handleClick = async () => {
         try{
             console.log('Code entered by user:', code);
-            setIsImgReady(true);
 
             const imageRef = collection(firestore, 'images');
-            const q = query(imageRef, where('code', '==', parseInt(code)));
+            const q = query(imageRef, where('code', '==', code));
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
                 querySnapshot.forEach((doc) => {
                     const imageData = doc.data();
                     console.log('URL:', imageData.url); // Access URL from document data
+                    setImageUrl(imageData.url); // Set the image URL
+                    setIsImgReady(true);
                 });
-                setIsImgReady(true);
             } else {
                 console.log("Image not found for code:", code);
             }
@@ -35,6 +38,7 @@ function Download() {
             console.error("Error querying Firestore:", error);
             return null;
         }
+        console.log('ImageURL:', imageUrl);
     }
 
     const handleInputChange = (event) => {
@@ -42,7 +46,7 @@ function Download() {
     }
     return (
         <>
-            <p> Enter Code: </p>
+            <h1> Enter Code: </h1>
             <input type="number" value={code} onChange={handleInputChange}/>
             <br/>
             {(!isImgReady) && <>
@@ -50,7 +54,10 @@ function Download() {
             </>}
 
             {(isImgReady) && <>
-            <a className="blackButton" download = "/"> Download </a> 
+            <h1> Image Found! Download Below: </h1>
+            <img class = "downloadedpic" src={imageUrl} alt="Uploaded Image" />
+            <br/>
+            <a className="blackButton" href={imageUrl} download> Download </a> 
             </>}
         </>
     )

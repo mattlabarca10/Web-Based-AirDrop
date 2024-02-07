@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom"
 import { Root } from "./routes/root/root";
 import { Upload } from "./routes/upload/upload";
 import { Download } from "./routes/download/download";
+import { Test } from "./routes/test";
 // using React-Router
 // see https://reactrouter.com/en/main for more info
 
@@ -20,6 +21,10 @@ const routes = [
     {
         path: "/download",
         element: <Download />,
+    },
+    {
+        path: "/test",
+        element: <Test />
     }
 ];
 

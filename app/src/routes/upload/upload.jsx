@@ -6,7 +6,7 @@ import { ConfirmUpload } from "../../components/confirmUpload/confirmUpload";
 import "./upload.css";
 
 function Upload() {
-    const [imageUpload, setImageUpload] = useState(null);
+    const [file, setFile] = useState(null);
     /*
     because the image is put in local storage before making it to the upload
     we can make the check here when we initialize it so we don't have to wait
@@ -26,7 +26,8 @@ function Upload() {
     });
 
     const handleImageUpload = (image) => {
-        setImageUpload(image);
+        setFile(image);
+        console.log(file);
     };
 
     return (
@@ -37,10 +38,10 @@ function Upload() {
                 Web-based AirDrop <br/>
                 Share Images Free
                 </h1>
-                <FileUploadBox setImageUpload={handleImageUpload} />
+                <FileUploadBox setIsImageUpload={handleImageUpload} />
             </>}
             {(isImgUploaded) && <>
-                <ConfirmUpload imageUpload={imageUpload}/>
+                <ConfirmUpload file={file}/>
             </>}
         </>
     )
