@@ -4,7 +4,8 @@
   "description": "Web Based Airdrop",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/mattlabarca10/Web-Based-AirDrop#readme",
   "dependencies": {
+    "firebase": "^10.8.0",
     "react-router": "^6.21.2",
     "react-scripts": "^5.0.1"
   }
