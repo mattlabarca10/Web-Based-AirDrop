@@ -13,17 +13,30 @@ function Upload() {
     for the listener.
     */
     const [isImgUploaded, setIsImgUploaded] = useState(localStorage.hasOwnProperty("url"));
+    const [imageUploaded, setImageUploaded] = useState(false);
 
     /*
         this might be a memory leak I'm not sure
         I'm goint to come back to this
     */
-    window.addEventListener("storage", () => {
-        // this event is called when
-        // we write the valid file to
-        // local storage
-        setIsImgUploaded(true);
-    });
+    useEffect(() => {
+        const storageEventHandler = () => {
+            setIsImgUploaded(true);
+        };
+
+        window.addEventListener("storage", storageEventHandler);
+
+        return () => {
+            window.removeEventListener("storage", storageEventHandler);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isImgUploaded) {
+            // If isImgUploaded is true, set the imageUploaded state to true
+            setImageUploaded(true);
+        }
+    }, [isImgUploaded]);
 
     const handleImageUpload = (image) => {
         setFile(image);
@@ -32,17 +45,15 @@ function Upload() {
 
     return (
         <>
-            {(!isImgUploaded) && <>
-                {/* Keep the line breaks */}
-                <h1 className='title-text'> 
-                Web-based AirDrop <br/>
-                Share Images Free
-                </h1>
-                <FileUploadBox setIsImageUpload={handleImageUpload} />
-            </>}
-            {(isImgUploaded) && <>
+            {(!imageUploaded) && ( // Render FileUploadBox if image has not been uploaded
+                <>
+                    <h1 className='title-text'>Web-based AirDrop <br/> Share Images Free</h1>
+                    <FileUploadBox setIsImageUpload={handleImageUpload} />
+                </>
+            )}
+            {(imageUploaded) && ( // Render ConfirmUpload if image has been uploaded
                 <ConfirmUpload file={file}/>
-            </>}
+            )}
         </>
     )
 }

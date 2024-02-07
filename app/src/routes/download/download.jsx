@@ -1,6 +1,6 @@
 import React , {useState} from "react";
 import firebase from "../../firebase"
-import { getFirestore, collection, query, where, doc, getDoc, getDocs } from "firebase/firestore"
+import { getFirestore, collection, query, where, doc, getDocs } from "firebase/firestore"
 import "./download.css";
 import  BlackButton  from "../../components/blackButton/blackButton";
 
@@ -32,7 +32,7 @@ function Download() {
                     setIsImgReady(true);
                 });
             } else {
-                console.log("Image not found for code:", code);
+                alert("Image not found for code!");
             }
         } catch (error) {
             console.error("Error querying Firestore:", error);
@@ -51,13 +51,14 @@ function Download() {
             <br/>
             {(!isImgReady) && <>
                 <BlackButton text = {"Check Code"}  onClick={handleClick}/>
+
             </>}
 
             {(isImgReady) && <>
-            <h1> Image Found! Download Below: </h1>
+            <h1> Image Found!</h1>
             <img class = "downloadedpic" src={imageUrl} alt="Uploaded Image" />
             <br/>
-            <a className="blackButton" href={imageUrl} download> Download </a> 
+            <a className="blackButton" href={imageUrl} download> View Photo </a> 
             </>}
         </>
     )

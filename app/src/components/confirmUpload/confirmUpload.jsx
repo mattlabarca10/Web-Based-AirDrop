@@ -10,7 +10,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage";
 import "./confirmUpload.css";
 
-const{ app, analytics, storage, firestore } = firebase;
+const{ firestore } = firebase;
 
 function ConfirmUpload() {
     const [width, setWidth] = useState(0);
