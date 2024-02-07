@@ -8,7 +8,7 @@ const {app, analytics, storage, firestore} = firebase;
 
 const db = getFirestore();
 const docRef = doc(db, "images", "AUqPTHnCYwC0gfck56Jd");
-const docSnap = await getDoc(docRef);
+//const docSnap = await getDoc(docRef);
 //console.log(docSnap.data())
 
 function Download() {
