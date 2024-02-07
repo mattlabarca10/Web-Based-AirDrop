@@ -20,9 +20,12 @@ function ConfirmUpload() {
     const [randomCode, setRandomCode] = useState(false);
 
     useEffect(() => {
-        let img = document.getElementById("uploadedImage");
-        setHeight(img.height);
-        setWidth(img.width);
+        let img = document.createElement("img");
+        img.src = localStorage.getItem("url");
+        img.onload = () => {
+            setHeight(img.height);
+            setWidth(img.width);
+        };
     }, []);
 
     const handleUpload = async () => {

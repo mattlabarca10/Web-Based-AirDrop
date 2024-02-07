@@ -12,7 +12,7 @@ function FileUploadBox({ setUploadImage }) {
 
     const [isFileOver, setIsFileOver] = useState(false);
     const [isDropped, setIsDropped] = useState(false);
-    const[imageUpload, setImageUpload] = useState(null);
+    //const[imageUpload, setImageUpload] = useState(null);
 
     const ref = useRef(null);
 
@@ -79,24 +79,18 @@ function FileUploadBox({ setUploadImage }) {
     // on the components bootup add these event listeners
     // when we destroy the component remove these event listeners
     useEffect(() => {
-        ref.current.addEventListener('dragover', dragOverHandler);
-        ref.current.addEventListener('drop', dropHandler);
-        ref.current.addEventListener('dragend', dragend_dragleaveHandler);
-        ref.current.addEventListener('dragleave', dragend_dragleaveHandler);
+        const currentRef = ref.current;
+        currentRef.addEventListener('dragover', dragOverHandler);
+        currentRef.addEventListener('drop', dropHandler);
+        currentRef.addEventListener('dragend', dragend_dragleaveHandler);
+        currentRef.addEventListener('dragleave', dragend_dragleaveHandler);
         
         return () => {
-            // it seems that something is causing
-            // this to be called twice? and it's causing an error
-            // at unmount time
-            // see https://react.dev/learn/synchronizing-with-effects
-            if (ref.current !== null) {
-                ref.current.removeEventListener('dragover', dragOverHandler);
-                ref.current.removeEventListener('drop', dropHandler);
-                ref.current.removeEventListener('dragend', dragend_dragleaveHandler);
-                ref.current.removeEventListener('dragleave', dragend_dragleaveHandler);
-            }
+            currentRef.removeEventListener('dragover', dragOverHandler);
+            currentRef.removeEventListener('drop', dropHandler);
+            currentRef.removeEventListener('dragend', dragend_dragleaveHandler);
+            currentRef.removeEventListener('dragleave', dragend_dragleaveHandler);
         };
-
     }, []);
 
     
